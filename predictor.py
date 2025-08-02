@@ -133,7 +133,7 @@ def get_optimised_11(sorted_11,country1,country2,players_name,stadium):
     
     problem += lpSum(player_vars[p["name"]] * p["fantasy_points"] for p in players)
     
-    problem += lpSum(player_vars[p["name"]] for p in players) ==15
+    problem += lpSum(player_vars[p["name"]] for p in players) == 11
     
     problem += lpSum(player_vars[p["name"]] * p["credits"] for p in players) <= 120
     
@@ -155,6 +155,6 @@ def get_optimised_11(sorted_11,country1,country2,players_name,stadium):
     problem.solve()
     
     # Get the selected players
-    selected_team = [(p["name"],p["fantasy_points"]) for p in players if player_vars[p["name"]].value() == 1]
+    selected_team = [(p["name"],p["role"],p["fantasy_points"]) for p in players if player_vars[p["name"]].value() == 1]
     
     return selected_team

@@ -2,6 +2,7 @@ from data_loader import load_data, encode_features
 from model_trainer import train_models
 from predictor import load_models, predict_best_11
 import os
+import joblib
 teams = {'Australia': ['Aaron Hardie','Adam Zampa','Alex Carey','Ben Dwarshuis','Cooper Connolly','Glenn Maxwell','Jake Fraser-McGurk','Josh Inglis','Marnus Labuschagne','Matthew Short','Nathan Ellis','Sean Abbott','Spencer Johnson','Steven Smith','Tanveer Sangha','Travis Head'],
  'Pakistan': ['Abrar Ahmed','Agha Salman','Babar Azam','Faheem Ashraf','Fakhar Zaman','Haris Rauf','Imam ul-Haq','Kamran Ghulam','Khushdil Shah','Mohammad Hasnain','Mohammad Rizwan','Naseem Shah','Saud Shakeel','Shaheen Afridi','Tayyab Tahir','Usman Khan'],
  'England': ['Adil Rashid','Ben Duckett','Brydon Carse','Gus Atkinson','Harry Brook','Jamie Overton','Jamie Smith','Joe Root','Jofra Archer','Jos Buttler','Liam Livingstone','Mark Wood','Philip Salt','Rehan Ahmed','Saqib Mahmood','Tom Banton'],
@@ -20,6 +21,8 @@ MODEL_FOLDER = "models/"
 print("Loading data.....")
 df = load_data(DATA_FOLDER)
 df, encoder = encode_features(df)
+joblib.dump(encoder, "encoder.pkl")  # Save for Streamlit
+
 print("Data loading completed")
 
 # ----- Train & Save Models -----
