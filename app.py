@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
+import io
 
 from data_loader import load_data
 from predictor import load_models, predict_best_11
@@ -47,17 +48,21 @@ if st.sidebar.button("⚡ Predict Best 11"):
 
         if best_11:
             st.success("✅ Optimized Best 11:")
-            df_output = pd.DataFrame(best_11, columns=["Player Name", "Role","Predicted Fantasy Points"])
+            df_output = pd.DataFrame(best_11, columns=["Player Name", "Role", "Predicted Fantasy Points"])
             st.dataframe(df_output)
 
-            # Optional download
+            # Write ONLY best 11 to Excel
+            buffer = io.BytesIO()
+            df_output.to_excel(buffer, index=False, engine='openpyxl')
+            buffer.seek(0)
+
             st.download_button(
-                label="💾 Download Best 11",
-                data=df_output.to_excel(index=False),
+                label="💾 Download Best 11 (as Excel)",
+                data=buffer,
                 file_name="best_11.xlsx",
-                mime="text/csv"
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
         else:
             st.warning("⚠️ No valid predictions made.")
     except Exception as e:
-        st.error(f"❌ Error: {e}")
+        st.error(f"❌ Error: {e}")     
