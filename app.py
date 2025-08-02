@@ -53,8 +53,8 @@ if st.sidebar.button("⚡ Predict Best 11"):
             # Optional download
             st.download_button(
                 label="💾 Download Best 11",
-                data=df_output.to_csv(index=False),
-                file_name="best_11.csv",
+                data=df_output.to_excel(index=False),
+                file_name="best_11.xlsx",
                 mime="text/csv"
             )
         else:
