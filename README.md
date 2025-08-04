@@ -67,7 +67,7 @@ for player in df["Player"].unique():
     model = GridSearchCV(RandomForestRegressor(), param_grid, cv=3)
     model.fit(X_train, y_train)
     joblib.dump(model, f"{save_path}/{player}.pkl")
-
+```
 Evaluation
 
 Model accuracy is measured using .score() (R² on test data).
