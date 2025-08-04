@@ -1,114 +1,109 @@
-🏏 Dream11 Fantasy Cricket Prediction
-Live Demo 👉 nimuni.streamlit.app
+🏏 Dream11 Fantasy Prediction Model
+Predict the fantasy performance of players in upcoming cricket matches using historical stats, machine learning, and match conditions.
 
-This project predicts fantasy points for individual cricket players using machine learning models trained on past match data. You can select two teams and a stadium, and the app recommends the optimal 11 players based on data-driven predictions.
+🔗 Live App: nimuni.streamlit.app
+📁 Tech Stack: Python, Pandas, Scikit-learn, Streamlit, Joblib, GridSearchCV
 
-🚀 Features
-Predicts Dream11 points for each player using their historical data.
+🚀 Project Overview
+This project predicts Dream11 fantasy points of cricket players using their:
 
-Accounts for:
+Past performance
 
-Player's recent form.
+Match conditions
 
-Opponent matchup.
+Opponent team
 
-Venue (stadium) impact.
+Stadium history
 
-Generates optimized best 11 using performance scores.
+It helps in selecting an optimized Best XI for fantasy leagues like Dream11, based on predicted scores.
 
-Trained individual regression models for each player using RandomForestRegressor.
+📊 Data Overview
+The model uses two types of data:
 
-Supports live use through a Streamlit web app.
+Match-wise Player Stats
 
-📊 Tech Stack
-Category	Tools
-Language	Python
-ML Models	Scikit-learn (RandomForestRegressor)
-Preprocessing	Pandas, NumPy, Scikit-learn
-Model Tuning	GridSearchCV
-Deployment	Streamlit
-Persistence	Joblib (for saving models)
+Runs, wickets, boundaries, strike rate, etc.
 
-📁 Folder Structure
-bash
-Copy
-Edit
-.
-models/                   # Folder storing individual player models (.pkl)
-  data/                    # Raw and preprocessed data files
-  app.py                   # Main Streamlit app
-  utils.py                 # Helper functions for preprocessing and modeling
-  requirements.txt         # All dependencies
-  README.md                # This file
+Team and opponent
 
-🧠 How It Works
-Data Preprocessing:
-Dataset contains: Player, Team, Opponent, Stadium, Matches, Runs, Wickets, etc.
+Stadium
 
-Categorical encoding using OneHotEncoder for Stadium, and Team vs Opponent.
+Target Label
 
-Feature scaling with StandardScaler.
+Dream11 Points: Manually calculated based on standard scoring rules.
 
-Model Training:
-Trains a separate Random Forest regression model for each player.
+🔍 Key Features Used
+Feature	Description
+Runs, Wickets, Catches, etc.	Player performance stats
+Stadium	Location of match
+Team vs Opponent	Encoded as "Team_vs_Opponent"
+Encoded Features	One-hot encoded team, opponent, and stadium
 
-Performs GridSearchCV for hyperparameter tuning (n_estimators, max_depth).
+All features are scaled using StandardScaler.
 
-Ignores players with fewer than 5 matches.
+🧠 Model Training
+For each player:
 
-Prediction:
-For a given team matchup and stadium, predict points for all players.
+Filter out their match data.
 
-Select top 11 players with maximum predicted Dream11 points.
+Train a separate RandomForestRegressor.
 
-📌 Example Inputs
-Feature	Example
-Team	India
-Opponent	Australia
-Stadium	Wankhede
-Matches Played	12
-Batting Avg	42.5
-Bowling Econ	6.1
+Use GridSearchCV to find optimal hyperparameters.
 
-📈 Sample Output
-plaintext
-Copy
-Edit
-✅ Optimized Best 11:
-1. V. Kohli –  57.3 points
-2. R. Sharma – 48.6 points
-3. J. Bumrah – 42.0 points
-...
-Also downloadable as CSV!
+Skip players with very little match data (e.g., <5 games).
 
-🛠️ Setup Instructions
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/dream11-fantasy-predictor.git
-cd dream11-fantasy-predictor
+Store trained models using joblib.
+
+Sample Code Snippet
+for player in df["Player"].unique():
+    player_df = df[df["Player"] == player]
+    # ... preprocessing ...
+    model = GridSearchCV(RandomForestRegressor(), param_grid, cv=3)
+    model.fit(X_train, y_train)
+    joblib.dump(model, f"{save_path}/{player}.pkl")
+
+ Evaluation
+Model accuracy is measured using .score() (R² on test data).
+
+Most good players (with decent past data) show reasonable predictions.
+
+Outliers or debutants tend to have unstable scores (as expected).
+
+🎯 Output
+Each player gets a predicted fantasy score.
+
+The app selects an optimized XI using constraints like roles (batsman, bowler, etc.), budget, and recent form.
+
+💻 Run Locally
+
+git clone https://github.com/your-username/Dream11-Fantasy-Predictor.git
+cd Dream11-Fantasy-Predictor
 pip install -r requirements.txt
 streamlit run app.py
-📌 To-Do
- Add ensemble blending models (XGBoost + RF + SVR).
 
- Add injury reports & toss impact.
+📦 Dependencies
+pandas
 
- UI improvements.
+scikit-learn
 
- Integrate live match API.
+streamlit
+
+joblib
+
+🌐 Live Deployment
+The app is deployed on Streamlit Cloud and accessible at:
+
+👉 nimuni.streamlit.app
+
+📚 Future Enhancements
+Use ball-by-ball data for better micro-analysis.
+
+Include recent player form based on the last 2 months.
+
+Add support for real-time injury/team updates.
+
+Experiment with deep learning (e.g., LSTM for temporal performance trends).
 
 🙋‍♂️ Author
-Harman, B.Tech CSE, NIT Kurukshetra
-
-🏁 License
-This project is open-source under the MIT License.
-
-
-
-
-
-
-
-
-Ask ChatGPT
+Harmanjeet Singh
+Passionate about machine learning, data science, and real-world sports applications.
