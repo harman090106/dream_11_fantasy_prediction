@@ -81,12 +81,12 @@ Budget
 Recent form
 
 💻 Run Locally
-
+```bash
 git clone https://github.com/your-username/Dream11-Fantasy-Predictor.git
 cd Dream11-Fantasy-Predictor
 pip install -r requirements.txt
 streamlit run app.py
-
+```
 📦 Dependencies
 pandas
 scikit-learn
