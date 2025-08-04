@@ -34,12 +34,13 @@ bash
 Copy
 Edit
 .
-├── models/                   # Folder storing individual player models (.pkl)
-├── data/                    # Raw and preprocessed data files
-├── app.py                   # Main Streamlit app
-├── utils.py                 # Helper functions for preprocessing and modeling
-├── requirements.txt         # All dependencies
-└── README.md                # This file
+models/                   # Folder storing individual player models (.pkl)
+  data/                    # Raw and preprocessed data files
+  app.py                   # Main Streamlit app
+  utils.py                 # Helper functions for preprocessing and modeling
+  requirements.txt         # All dependencies
+  README.md                # This file
+
 🧠 How It Works
 Data Preprocessing:
 Dataset contains: Player, Team, Opponent, Stadium, Matches, Runs, Wickets, etc.
