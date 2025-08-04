@@ -1,60 +1,66 @@
-🏏 Dream11 Fantasy Prediction Model
+# 🏏 Dream11 Fantasy Prediction Model
+
 Predict the fantasy performance of players in upcoming cricket matches using historical stats, machine learning, and match conditions.
 
-🔗 Live App: nimuni.streamlit.app
-📁 Tech Stack: Python, Pandas, Scikit-learn, Streamlit, Joblib, GridSearchCV
+---
 
-🚀 Project Overview
-This project predicts Dream11 fantasy points of cricket players using their:
+**🔗 Live App:** [nimuni.streamlit.app](https://nimuni.streamlit.app)  
+**📁 Tech Stack:** Python, Pandas, Scikit-learn, Streamlit, Joblib, GridSearchCV
 
-Past performance
+---
 
-Match conditions
+## 🚀 Project Overview
 
-Opponent team
+This project predicts Dream11 fantasy points for cricket players using:
 
-Stadium history
+- **Past performance**
+- **Match conditions**
+- **Opponent team**
+- **Stadium history**
 
-It helps in selecting an optimized Best XI for fantasy leagues like Dream11, based on predicted scores.
+It helps select an optimized Best XI for fantasy leagues like Dream11, based on predicted scores.
 
-📊 Data Overview
+---
+
+## 📊 Data Overview
+
 The model uses two types of data:
 
-Match-wise Player Stats
+- **Match-wise Player Stats**
+  - Runs, wickets, boundaries, strike rate, etc.
+  - Team and opponent
+  - Stadium
 
-Runs, wickets, boundaries, strike rate, etc.
+- **Target Label**
+  - Dream11 Points: Manually calculated based on standard scoring rules.
 
-Team and opponent
+---
 
-Stadium
+## 🔍 Key Features Used
 
-Target Label
+| Feature                  | Description                                |
+|--------------------------|--------------------------------------------|
+| Runs, Wickets, Catches   | Player performance stats                   |
+| Stadium                  | Location of match                          |
+| Team vs Opponent         | Encoded as "Team_vs_Opponent"              |
+| Encoded Features         | One-hot encoded team, opponent, and stadium|
 
-Dream11 Points: Manually calculated based on standard scoring rules.
+_All features are scaled using `StandardScaler`._
 
-🔍 Key Features Used
-Feature	Description
-Runs, Wickets, Catches, etc.	Player performance stats
-Stadium	Location of match
-Team vs Opponent	Encoded as "Team_vs_Opponent"
-Encoded Features	One-hot encoded team, opponent, and stadium
+---
 
-All features are scaled using StandardScaler.
+## 🧠 Model Training
 
-🧠 Model Training
 For each player:
 
-Filter out their match data.
+1. Filter out their match data.
+2. Train a separate `RandomForestRegressor`.
+3. Use `GridSearchCV` to find optimal hyperparameters.
+4. Skip players with very little match data (e.g., <5 games).
+5. Store trained models using `joblib`.
 
-Train a separate RandomForestRegressor.
-
-Use GridSearchCV to find optimal hyperparameters.
-
-Skip players with very little match data (e.g., <5 games).
-
-Store trained models using joblib.
-
-Sample Code Snippet
+**Sample Code Snippet:**
+```python
 for player in df["Player"].unique():
     player_df = df[df["Player"] == player]
     # ... preprocessing ...
@@ -62,17 +68,17 @@ for player in df["Player"].unique():
     model.fit(X_train, y_train)
     joblib.dump(model, f"{save_path}/{player}.pkl")
 
- Evaluation
+Evaluation
+
 Model accuracy is measured using .score() (R² on test data).
-
 Most good players (with decent past data) show reasonable predictions.
-
 Outliers or debutants tend to have unstable scores (as expected).
-
 🎯 Output
 Each player gets a predicted fantasy score.
-
-The app selects an optimized XI using constraints like roles (batsman, bowler, etc.), budget, and recent form.
+The app selects an optimized XI using constraints like:
+Roles (batsman, bowler, etc.)
+Budget
+Recent form
 
 💻 Run Locally
 
@@ -83,27 +89,21 @@ streamlit run app.py
 
 📦 Dependencies
 pandas
-
 scikit-learn
-
 streamlit
-
 joblib
-
 🌐 Live Deployment
 The app is deployed on Streamlit Cloud and accessible at:
-
 👉 nimuni.streamlit.app
 
 📚 Future Enhancements
 Use ball-by-ball data for better micro-analysis.
-
 Include recent player form based on the last 2 months.
-
 Add support for real-time injury/team updates.
-
 Experiment with deep learning (e.g., LSTM for temporal performance trends).
-
 🙋‍♂️ Author
 Harmanjeet Singh
 Passionate about machine learning, data science, and real-world sports applications.
+
+
+Let me know if you want this file pushed directly to your repository!
