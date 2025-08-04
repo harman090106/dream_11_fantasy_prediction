@@ -1,81 +1,113 @@
-# 🏏 Dream11 Fantasy Prediction Project
+🏏 Dream11 Fantasy Cricket Prediction
+Live Demo 👉 nimuni.streamlit.app
 
-This project predicts the best possible playing 11 for a Dream11 fantasy cricket match using historical data, player stats, recent form, and venue-based performance.
+This project predicts fantasy points for individual cricket players using machine learning models trained on past match data. You can select two teams and a stadium, and the app recommends the optimal 11 players based on data-driven predictions.
 
-## 🔍 Problem Statement
+🚀 Features
+Predicts Dream11 points for each player using their historical data.
 
-Fantasy cricket requires users to select players based on skill, form, and conditions. However, manually analyzing all variables is time-consuming and error-prone.  
-This project automates the process using machine learning and statistical modeling to generate an optimal Dream11 team for any given match.
+Accounts for:
 
-## 🚀 Features
+Player's recent form.
 
-- Predicts the top 11 players for an upcoming match
-- Uses historical player performance data
-- Considers recent form, venue, match type (ODI/T20), and opposition
-- Optimizes team composition based on Dream11 constraints (credits, roles, etc.)
-- Built with a modular ML pipeline
+Opponent matchup.
 
-## 🧠 Tech Stack
+Venue (stadium) impact.
 
-- **Language:** Python  
-- **ML Libraries:** scikit-learn, pandas, numpy  
-- **Visualization:** matplotlib, seaborn  
-- **Others:** Jupyter Notebooks, MongoDB (for storing player data)
+Generates optimized best 11 using performance scores.
 
-## 📁 Folder Structure
+Trained individual regression models for each player using RandomForestRegressor.
 
-dream_11/
-├── data/ # Raw + processed datasets
-├── notebooks/ # EDA, model training, evaluation
-├── src/ # Source code for training, prediction
-├── utils/ # Helper functions
-├── saved_models/ # Trained model files
-├── requirements.txt
-└── README.md
+Supports live use through a Streamlit web app.
 
-markdown
+📊 Tech Stack
+Category	Tools
+Language	Python
+ML Models	Scikit-learn (RandomForestRegressor)
+Preprocessing	Pandas, NumPy, Scikit-learn
+Model Tuning	GridSearchCV
+Deployment	Streamlit
+Persistence	Joblib (for saving models)
+
+📁 Folder Structure
+bash
 Copy
 Edit
+.
+├── models/                   # Folder storing individual player models (.pkl)
+├── data/                    # Raw and preprocessed data files
+├── app.py                   # Main Streamlit app
+├── utils.py                 # Helper functions for preprocessing and modeling
+├── requirements.txt         # All dependencies
+└── README.md                # This file
+🧠 How It Works
+Data Preprocessing:
+Dataset contains: Player, Team, Opponent, Stadium, Matches, Runs, Wickets, etc.
 
-## 🧪 How to Run
+Categorical encoding using OneHotEncoder for Stadium, and Team vs Opponent.
 
-1. Clone the repo:
-git clone https://github.com/your-username/dream_11_fantasy_prediction.git
+Feature scaling with StandardScaler.
 
-markdown
+Model Training:
+Trains a separate Random Forest regression model for each player.
+
+Performs GridSearchCV for hyperparameter tuning (n_estimators, max_depth).
+
+Ignores players with fewer than 5 matches.
+
+Prediction:
+For a given team matchup and stadium, predict points for all players.
+
+Select top 11 players with maximum predicted Dream11 points.
+
+📌 Example Inputs
+Feature	Example
+Team	India
+Opponent	Australia
+Stadium	Wankhede
+Matches Played	12
+Batting Avg	42.5
+Bowling Econ	6.1
+
+📈 Sample Output
+plaintext
 Copy
 Edit
+✅ Optimized Best 11:
+1. V. Kohli –  57.3 points
+2. R. Sharma – 48.6 points
+3. J. Bumrah – 42.0 points
+...
+Also downloadable as CSV!
 
-2. Install requirements:
+🛠️ Setup Instructions
+bash
+Copy
+Edit
+git clone https://github.com/yourusername/dream11-fantasy-predictor.git
+cd dream11-fantasy-predictor
 pip install -r requirements.txt
+streamlit run app.py
+📌 To-Do
+ Add ensemble blending models (XGBoost + RF + SVR).
 
-markdown
-Copy
-Edit
+ Add injury reports & toss impact.
 
-3. Run the prediction script:
-python src/predict_best_11.py
+ UI improvements.
 
-pgsql
-Copy
-Edit
+ Integrate live match API.
 
-## 📊 Sample Output
+🙋‍♂️ Author
+Harman, B.Tech CSE, NIT Kurukshetra
 
-- Predicted best 11 players with roles and scores
-- Justification based on recent form, venue stats, etc.
-- Credit optimization logic
+🏁 License
+This project is open-source under the MIT License.
 
-## 📌 Future Improvements
 
-- UI for user inputs (teams, venue)
-- Real-time data scraping from cricket APIs
-- Integration with fantasy platforms for automated team upload
 
-## 🤝 Contribution
 
-Open to collaborations and suggestions. Feel free to fork or raise issues!
 
-## 📜 License
 
-MIT License
+
+
+Ask ChatGPT
